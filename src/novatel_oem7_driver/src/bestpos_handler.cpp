@@ -36,6 +36,7 @@
 #include "novatel_oem7_msgs/msg/ppppos.hpp"
 #include "novatel_oem7_msgs/msg/bestpos.hpp"
 #include "novatel_oem7_msgs/msg/bestutm.hpp"
+#include "novatel_oem7_msgs/msg/bestxyz.hpp"
 #include "novatel_oem7_msgs/msg/bestvel.hpp"
 #include "novatel_oem7_msgs/msg/bestgnssvel.hpp"
 #include "novatel_oem7_msgs/msg/bestgnsspos.hpp"
@@ -65,6 +66,7 @@ using novatel_oem7_msgs::msg::BESTPOS;
 using novatel_oem7_msgs::msg::BESTVEL;
 using novatel_oem7_msgs::msg::BESTGNSSVEL;
 using novatel_oem7_msgs::msg::BESTUTM;
+using novatel_oem7_msgs::msg::BESTXYZ;
 using novatel_oem7_msgs::msg::BESTGNSSPOS;
 using novatel_oem7_msgs::msg::INSPVA;
 using novatel_oem7_msgs::msg::INSPVAX;
@@ -235,6 +237,7 @@ namespace novatel_oem7_driver
     std::unique_ptr<Oem7RosPublisher<BESTVEL>>        BESTVEL_pub_;
     std::unique_ptr<Oem7RosPublisher<BESTGNSSVEL>>    BESTGNSSVEL_pub_;
     std::unique_ptr<Oem7RosPublisher<BESTUTM>>        BESTUTM_pub_;
+    std::unique_ptr<Oem7RosPublisher<BESTXYZ>>        BESTXYZ_pub_;
     std::unique_ptr<Oem7RosPublisher<BESTGNSSPOS>>    BESTGNSSPOS_pub_;
     std::unique_ptr<Oem7RosPublisher<INSPVA>>         INSPVA_pub_;
 
@@ -323,6 +326,13 @@ namespace novatel_oem7_driver
         std::shared_ptr<novatel_oem7_msgs::msg::BESTUTM> bestutm;
         MakeROSMessage(msg, bestutm);
         BESTUTM_pub_->publish(bestutm);
+    }
+
+    void publishBESTXYZ(Oem7RawMessageIf::ConstPtr msg)
+    {
+        std::shared_ptr<novatel_oem7_msgs::msg::BESTXYZ> bestxyz;
+        MakeROSMessage(msg, bestxyz);
+        BESTXYZ_pub_->publish(bestxyz);
     }
 
     void publishBESTGNSSVEL(Oem7RawMessageIf::ConstPtr msg)
@@ -739,6 +749,7 @@ namespace novatel_oem7_driver
       BESTVEL_pub_      = std::make_unique<Oem7RosPublisher<BESTVEL>>(      "BESTVEL",       node);
       BESTGNSSVEL_pub_  = std::make_unique<Oem7RosPublisher<BESTGNSSVEL>>(  "BESTGNSSVEL",   node);
       BESTUTM_pub_      = std::make_unique<Oem7RosPublisher<BESTUTM>>(      "BESTUTM",       node);
+      BESTXYZ_pub_      = std::make_unique<Oem7RosPublisher<BESTXYZ>>(      "BESTXYZ",       node);
       BESTGNSSPOS_pub_  = std::make_unique<Oem7RosPublisher<BESTGNSSPOS>>(  "BESTGNSSPOS",   node);
       INSPVA_pub_       = std::make_unique<Oem7RosPublisher<INSPVA>>(       "INSPVA",        node);
 
@@ -774,6 +785,7 @@ namespace novatel_oem7_driver
                                       {BESTVEL_OEM7_MSGID,      MSGFLAG_NONE},
                                       {BESTGNSSVEL_OEM7_MSGID,  MSGFLAG_NONE},
                                       {BESTUTM_OEM7_MSGID,      MSGFLAG_NONE},
+                                      {BESTXYZ_OEM7_MSGID,      MSGFLAG_NONE},
                                       {BESTGNSSPOS_OEM7_MSGID,  MSGFLAG_NONE},
                                       {PPPPOS_OEM7_MSGID,       MSGFLAG_NONE},
                                       {INSPVAX_OEM7_MSGID,      MSGFLAG_NONE},
@@ -823,6 +835,11 @@ namespace novatel_oem7_driver
       if(msg->getMessageId() == BESTUTM_OEM7_MSGID)
       {
         publishBESTUTM(msg);
+      }
+
+      if(msg->getMessageId() == BESTXYZ_OEM7_MSGID)
+      {
+        publishBESTXYZ(msg);
       }
 
       if(msg->getMessageId() == BESTGNSSPOS_OEM7_MSGID)

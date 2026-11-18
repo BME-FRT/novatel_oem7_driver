@@ -385,6 +385,40 @@ namespace novatel_oem7_driver
   static_assert(sizeof(BESTUTMMem) == 80, ASSERT_MSG);
 
   struct __attribute__((packed))
+  BESTXYZMem
+  {
+    oem7_enum_t        p_sol_stat;
+    oem7_enum_t        pos_type;
+    double             pos_x;
+    double             pos_y;
+    double             pos_z;
+    float              pos_x_stddev;
+    float              pos_y_stddev;
+    float              pos_z_stddev;
+    oem7_enum_t        v_sol_stat;
+    oem7_enum_t        vel_type;
+    double             vel_x;
+    double             vel_y;
+    double             vel_z;
+    float              vel_x_stddev;
+    float              vel_y_stddev;
+    float              vel_z_stddev;
+    char               stn_id[4];
+    float              vel_latency;
+    float              diff_age;
+    float              sol_age;
+    uint8_t            num_svs;
+    uint8_t            num_sol_svs;
+    uint8_t            num_sol_ggl1_svs;
+    uint8_t            num_sol_multi_svs;
+    uint8_t            reserved;
+    uint8_t            ext_sol_stat;
+    uint8_t            galileo_beidou_sig_mask;
+    uint8_t            gps_glonass_sig_mask;
+  };
+  static_assert(sizeof(BESTXYZMem) == 112, ASSERT_MSG);
+
+  struct __attribute__((packed))
   RXSTATUSMem
   {
     uint32_t           error;

@@ -18,6 +18,7 @@ set(MSG_FILES
   msg/Oem7Header.msg
   msg/BESTPOS.msg
   msg/BESTUTM.msg
+  msg/BESTXYZ.msg
   msg/BESTVEL.msg
   msg/BESTGNSSPOS.msg
   msg/BESTGNSSVEL.msg

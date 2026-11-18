@@ -1,0 +1,32 @@
+# BESTXYZ: best available position and velocity in ECEF (WGS84) coordinates.
+# Oem7 log ID 241. Units: meters, meters/second, seconds.
+std_msgs/Header             header
+Oem7Header                  nov_header
+SolutionStatus              p_sol_status
+PositionOrVelocityType      pos_type
+float64                     pos_x
+float64                     pos_y
+float64                     pos_z
+float32                     pos_x_stddev
+float32                     pos_y_stddev
+float32                     pos_z_stddev
+SolutionStatus              v_sol_status
+PositionOrVelocityType      vel_type
+float64                     vel_x
+float64                     vel_y
+float64                     vel_z
+float32                     vel_x_stddev
+float32                     vel_y_stddev
+float32                     vel_z_stddev
+int8[4]                     stn_id
+float32                     vel_latency
+float32                     diff_age
+float32                     sol_age
+uint8                       num_svs
+uint8                       num_sol_svs
+uint8                       num_sol_ggl1_svs
+uint8                       num_sol_multi_svs
+uint8                       reserved
+BestExtendedSolutionStatus  ext_sol_stat
+uint8                       galileo_beidou_sig_mask
+uint8                       gps_glonass_sig_mask
